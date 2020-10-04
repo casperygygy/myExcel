@@ -1,0 +1,30 @@
+{
+  "name": "myproject",
+  "version": "1.0.0",
+  "description": "Pure JavaScript Excel Project",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack",
+    "build": "webpack --mode production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/casperygygy/myExcel.git"
+  },
+  "keywords": [
+    "js",
+    "vanila"
+  ],
+  "author": "Yaroslav Novikov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/casperygygy/myExcel/issues"
+  },
+  "homepage": "https://github.com/casperygygy/myExcel#readme",
+  "private": true,
+  "devDependencies": {
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12"
+  }
+}
