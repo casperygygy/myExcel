@@ -1,1 +1,2 @@
-console.log('from src');
+import './sass/index.sass'
+console.log('from src')
