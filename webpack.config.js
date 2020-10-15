@@ -3,6 +3,11 @@ const CopyPlugin = require('copy-webpack-plugin');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
+const fs = require('fs');
+
+const pagesDir = path.resolve(__dirname, 'src/pug/');
+const pages = fs.readdirSync(pagesDir)
+	.filter((fileName) => fileName.endsWith('.pug'));
 
 const isProd = process.env.NODE_ENV === 'production';
 const isDev = !isProd;
@@ -46,13 +51,6 @@ module.exports = {
 	},
 	plugins: [
 		new CleanWebpackPlugin(),
-		new HTMLWebpackPlugin({
-			template: 'index.html',
-			minify: {
-				removeComments: isProd,
-				collapseWhitespace: isProd,
-			},
-		}),
 		new CopyPlugin({
 			patterns: [
 				{
@@ -64,6 +62,15 @@ module.exports = {
 		new MiniCssExtractPlugin({
 			filename: filename('css'),
 		}),
+
+		...pages.map((page) => new HTMLWebpackPlugin({
+			template: `${pagesDir}/${page}`,
+			filename: `./${page.replace(/\.pug/, '.html')}`,
+			minify: {
+				removeComments: isProd,
+				collapseWhitespace: isProd,
+			},
+		})),
 	],
 	module: {
 		rules: [
@@ -85,6 +92,10 @@ module.exports = {
 				test: /\.m?js$/,
 				exclude: /node_modules/,
 				use: jsLoaders(),
+			},
+			{
+				test: /\.pug$/,
+				loader: 'pug-loader',
 			},
 		],
 	},
